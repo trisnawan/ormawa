@@ -301,6 +301,7 @@ class Organizations extends BaseController
             $data['members'] = $memberModel->findAll();
             $data['title'] = $data['tagihan']['title'] ?? 'Tagihan Dana Kas';
             $data['warning'] = $this->session->getFlashdata('warning');
+            $data['success'] = $this->session->getFlashdata('success');
             return view('organization/tagihan', $data);
         }
 
@@ -360,5 +361,41 @@ class Organizations extends BaseController
             return redirect()->to($redirect);
         }
         return redirect()->to('organizations/tagihan/'.$organizationId.'?id='.$tagihanId);
+    }
+
+    public function tagihan_view($tagihanId, $memberId){
+        $auth = new Auth();
+        if(!$auth->isLogin()) return 'Unauthorization';
+
+        $tagihanModel = new TagihanModel();
+        $tagihan = $tagihanModel->getTagihan($tagihanId, $memberId);
+
+        return view('organization/tagihan_view', [
+            'tagihan' => $tagihan
+        ]);
+    }
+
+    public function tagihan_verify($status){
+        $auth = new Auth();
+        if(!$auth->isLogin()) return 'Unauthorization';
+
+        $id = $this->request->getVar('id');
+        $transaksiModel = new TransaksiModel();
+
+        if($status == 'paid' && $id){
+            $save = $transaksiModel->update([$id], ['status' => 'paid']);
+        }
+
+        if($status == 'unpaid' && $id){
+            $save = $transaksiModel->update([$id], ['status' => 'unpaid']);
+        }
+
+        if($save ?? false){
+            $this->session->setFlashdata('success', 'Transaksi berhasil di update');
+        }else{
+            $this->session->setFlashdata('warning', 'Transaksi gagal di update, silahkan coba kembali');
+        }
+
+        return redirect()->back();
     }
 }

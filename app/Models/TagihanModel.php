@@ -51,10 +51,11 @@ class TagihanModel extends Model
         return $data;
     }
 
-    public function getTagihan($id, $user_id){
+    public function getTagihan($id, $member_id){
         $transaksiModel = new TransaksiModel();
         $data = $this->find($id);
         if($data){
+            $transaksiModel->where('member_id', $member_id);
             $data['transaksi'] = $transaksiModel->where('tagihan_id', $id)->first();
         }
         return $data;

@@ -6,6 +6,12 @@
             <div class="section-title">
                 <h2><?= $title ?></h2>
             </div>
+            <?php if($warning ?? false): ?>
+            <div class="alert alert-warning"><?= $warning ?></div>
+            <?php endif ?>
+            <?php if($success ?? false): ?>
+            <div class="alert alert-success"><?= $success ?></div>
+            <?php endif ?>
             <div class="row mb-4">
                 <div class="col-sm-12 col-md-6 mb-3" data-aos="fade-up-right">
                     <a href="#" class="d-block border rounded p-3 h-100 text-dark">
@@ -29,7 +35,7 @@
                 <div class="row" data-aos="fade-up">
                     <?php foreach($members as $member): ?>
                     <div class="col-12 mb-2">
-                        <a href="#" class="d-block card">
+                        <a href="#" class="d-block card" data-bs-toggle="modal" data-bs-target="#detailModal" data-bs-member="<?= $member['id'] ?>" data-bs-tagihan="<?= $tagihan['id'] ?>" data-bs-title="<?= $member['user_full_name'] ?>">
                             <div class="card-body text-dark">
                                 <div class="d-flex">
                                     <div class="me-2">
@@ -77,4 +83,36 @@
         </form>
     </div>
 </div>
+<div class="modal fade" id="detailModal" tabindex="-1" aria-labelledby="detailModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="detailModalLabel">Detail tagihan</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body tagihan-detail">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const detailModal = document.getElementById('detailModal');
+    if (detailModal) {
+        detailModal.addEventListener('show.bs.modal', event => {
+            const button = event.relatedTarget;
+            const id = button.getAttribute('data-bs-tagihan');
+            const member = button.getAttribute('data-bs-member');
+            const title = button.getAttribute('data-bs-title');
+            $('#detailModalLabel').text(title);
+            $('.tagihan-detail').html('<div class="alert alert-warning">Loading...</div>');
+            $('.tagihan-detail').load('<?= base_url('organizations/tagihan_view/') ?>'+id+'/'+member, function(){
+                $('.btn-action').attr('href', '<?= base_url('organizations/tolak/'.$tagihan['id']) ?>?id='+id);
+            });
+        });
+    };
+</script>
 <?= $this->endSection() ?>

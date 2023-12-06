@@ -24,9 +24,15 @@ class TransaksiModel extends Model
     protected $beforeInsert   = [];
     protected $afterInsert    = [];
     protected $beforeUpdate   = [];
-    protected $afterUpdate    = [];
+    protected $afterUpdate    = ['update_action'];
     protected $beforeFind     = [];
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    protected function update_action(array $data){
+        if(isset($data['id']) && isset($data['data']['status'])){
+            
+        }
+    }
 }
