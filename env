@@ -1,0 +1,38 @@
+CI_ENVIRONMENT = development
+
+app.baseURL = 'http://localhost:8080/'
+app_baseURL = 'http://localhost:8080/'
+
+database.default.hostname = localhost
+database.default.database = ormawa
+database.default.username = root
+database.default.password = 
+database.default.DBDriver = MySQLi
+database.default.port = 3306
+
+security.csrfProtection = 'cookie'
+security.tokenRandomize = false
+security.tokenName = 'csrf_ormawa_token'
+security.headerName = 'X-CSRF-TOKEN'
+security.cookieName = 'csrf_cookie_ormawa'
+security.expires = 7200
+security.regenerate = true
+security.redirect = false
+security.samesite = 'Lax'
+
+session.driver = 'CodeIgniter\Session\Handlers\FileHandler'
+session.cookieName = 'ormawa_session'
+session.expiration = 7200
+# session.savePath = null
+session.matchIP = false
+session.timeToUpdate = 300
+session.regenerateDestroy = false
+
+logger.threshold = 1
+
+appName = 'ORMAWA'
+appEmail = 'contact@ormawa.my.id'
+appSocialInstagram = ''
+appSocialFacebook = ''
+appSocialWhatsapp = ''
+appUniv = 'Universitas Bina Sarana Informatika'
