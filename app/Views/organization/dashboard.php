@@ -140,8 +140,29 @@
                                 </div>
                                 <?php endif ?>
                                 <div class="tab-pane fade" id="nav-event" role="tabpanel" aria-labelledby="nav-event-tab" tabindex="0">
+                                    <?php if($data['member']['role'] == 'admin'): ?>
+                                    <div class="text-end mb-3">
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#kegiatanModal"><i class="fas fa-plus"></i> Buat acara</a>
+                                    </div>
+                                    <?php endif ?>
                                     <?php if($data['member']['status'] == 'verified'): ?>
-                                    ...
+                                    <div class="row">
+                                        <div class="col-12 mb-3">
+                                            <a href="#" class="d-block text-dark card">
+                                                <div class="card-body">
+                                                    <div class="fw-bold">Judul</div>
+                                                    <div class="small">
+                                                        <i class="fas fa-clock"></i>
+                                                        <span>Waktu</span>
+                                                    </div>
+                                                    <div class="small">
+                                                        <i class="fas fa-location-dot"></i>
+                                                        <span>Location</span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
                                     <?php else: ?>
                                     <div class="alert alert-warning">
                                         <i class="fas fa-info-circle"></i>
@@ -187,6 +208,47 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                 <button type="submit" class="btn btn-primary">Buat tagihan</button>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal fade" id="kegiatanModal" tabindex="-1" aria-labelledby="kegiatanModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form class="modal-content" method="post" action="<?= base_url('organizations/kegiatan_create') ?>">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="kegiatanModalLabel">Buat kegiatan</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <?= csrf_field() ?>
+                <input type="hidden" name="organization_id" value="<?= $data['id'] ?>">
+                <input type="hidden" name="member_id" value="<?= $data['member']['id'] ?>">
+                <div class="mb-3">
+                    <label class="form-label">Judul kegiatan</label>
+                    <input type="text" name="title" id="title" placeholder="Judul tagihan" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Waktu mulai</label>
+                    <div class="input-group">
+                        <input type="time" class="form-control" name="start_time" id="start_time" required>
+                        <input type="date" class="form-control" name="start_date" id="start_date" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Waktu selesai</label>
+                    <div class="input-group">
+                        <input type="time" class="form-control" name="end_time" id="end_time" required>
+                        <input type="date" class="form-control" name="end_date" id="end_date" required>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Lokasi kegiatan</label>
+                    <input type="text" name="location" id="location" placeholder="Lokasi tagihan" class="form-control" required>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                <button type="submit" class="btn btn-primary">Buat kegiatan</button>
             </div>
         </form>
     </div>

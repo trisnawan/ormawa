@@ -170,6 +170,7 @@ class Organizations extends BaseController
         $data['success'] = $this->session->getFlashdata('success');
         if($organization['member']['role'] == 'admin'){
             $memberModel = new OrganizationMemberModel();
+            $memberModel->where('organization_member.organization_id', $organizationId);
             $data['verifing_member'] = $memberModel->where('organization_member.status', 'verifing')->findAll(20,0);
         }
         return view('organization/dashboard', $data);
@@ -397,5 +398,43 @@ class Organizations extends BaseController
         }
 
         return redirect()->back();
+    }
+
+    public function kegiatan_create()
+    {
+        $auth = new Auth();
+        if(!$auth->isLogin()) return redirect()->to('login');
+
+        $rules = [
+            'member_id' => 'required',
+            'title' => 'required',
+            'start_time' => 'required',
+            'start_date' => 'required',
+            'end_time' => 'required',
+            'end_date' => 'required',
+            'location' => 'required',
+        ];
+        if(!$this->validate($rules)){
+            $this->session->setFlashdata('warning', getErrors($this->validator->getErrors()));
+            return redirect()->back();
+        }
+
+        $validData = $this->validator->getValidated();
+        $validData['start_at'] = date('Y-m-d', strtotime($validData['start_date'])) . ' ' . date('H:i:s', strtotime($validData['start_time']));
+        $validData['end_at'] = date('Y-m-d', strtotime($validData['end_date'])) . ' ' . date('H:i:s', strtotime($validData['end_time']));
+        unset($validData['start_date']);
+        unset($validData['start_time']);
+        unset($validData['end_date']);
+        unset($validData['end_time']);
+
+        $pertemuanModel = new \App\Models\PertemuanModel();
+        $saved = $pertemuanModel->insert($validData);
+        if($saved ?? false){
+            $this->session->setFlashdata('success', 'Transaksi berhasil di update');
+            return redirect()->to('pertemuan/absensi/'.$saved);
+        }else{
+            $this->session->setFlashdata('warning', 'Transaksi gagal di update, silahkan coba kembali');
+        }
+        return redirect()->to('organizations/dashboard');
     }
 }
