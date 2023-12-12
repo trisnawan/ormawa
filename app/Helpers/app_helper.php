@@ -35,4 +35,17 @@ function rupiah($price){
     return 'Rp'.number_format($price,0);
 }
 
+function getKehadiran($status){
+    if($status == 'H'){
+        return 'Hadir';
+    }
+    if($status == 'I'){
+        return 'Sedang Ijin';
+    }
+    if($status == 'S'){
+        return 'Sedang Sakit';
+    }
+    return 'Tidak Hadir';
+}
+
 ?>

@@ -26,10 +26,17 @@ class PertemuanModel extends Model
     protected $afterInsert    = [];
     protected $beforeUpdate   = [];
     protected $afterUpdate    = [];
-    protected $beforeFind     = [];
+    protected $beforeFind     = ['selection_field'];
     protected $afterFind      = [];
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
+
+    protected function selection_field(array $data){
+        $this->select('pertemuan.*, organization_member.organization_id');
+        $this->join('organization_member', 'organization_member.id = pertemuan.member_id');
+        $this->orderBy('pertemuan.start_at', 'DESC');
+        return $data;
+    }
 
     protected function insert_field(array $data){
         $uuid = Uuid::uuid4();

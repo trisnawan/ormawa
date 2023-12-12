@@ -43,6 +43,7 @@ class OrganizationModel extends Model
     protected function select_field(array $data){
         $this->select('id, slug, title, description, status, created_at');
         $this->select("CONCAT('".base_url('content/organization/avatar/')."', IFNULL(avatar, 'default.png')) as avatar");
+        $this->select("CONCAT('".base_url('content/organization/doc/')."', IFNULL(legal_doc, 'default.png')) as legal_doc");
         $this->select("kas.saldo");
         $this->select("(SELECT COUNT(m.id) FROM organization_member m WHERE m.organization_id = organizations.id AND m.status = 'verified') as jumlah_anggota");
         $this->join("kas", "kas.organization_id = organizations.id", "left");

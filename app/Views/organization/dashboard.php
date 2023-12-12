@@ -146,23 +146,32 @@
                                     </div>
                                     <?php endif ?>
                                     <?php if($data['member']['status'] == 'verified'): ?>
+                                    <?php if($acara ?? false): ?>
                                     <div class="row">
+                                        <?php foreach($acara as $ac): ?>
                                         <div class="col-12 mb-3">
-                                            <a href="#" class="d-block text-dark card">
+                                            <a href="<?= base_url('pertemuan/absensi/'.$ac['id']) ?>" class="d-block text-dark card">
                                                 <div class="card-body">
-                                                    <div class="fw-bold">Judul</div>
+                                                    <div class="fw-bold"><?= $ac['title'] ?></div>
                                                     <div class="small">
                                                         <i class="fas fa-clock"></i>
-                                                        <span>Waktu</span>
+                                                        <span><?= date('H:i, d F Y', strtotime($ac['start_at'])) ?></span>
                                                     </div>
                                                     <div class="small">
                                                         <i class="fas fa-location-dot"></i>
-                                                        <span>Location</span>
+                                                        <span><?= $ac['location'] ?></span>
                                                     </div>
                                                 </div>
                                             </a>
                                         </div>
+                                        <?php endforeach ?>
                                     </div>
+                                    <?php else: ?>
+                                    <div class="alert alert-secondary">
+                                        <i class="fas fa-info-circle"></i>
+                                        <span>Saat ini belum ada acara untuk organisasi Anda.</span>
+                                    </div>
+                                    <?php endif ?>
                                     <?php else: ?>
                                     <div class="alert alert-warning">
                                         <i class="fas fa-info-circle"></i>

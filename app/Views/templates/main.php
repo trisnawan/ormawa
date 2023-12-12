@@ -26,6 +26,7 @@
         }
     </style>
     <script src="<?= base_url() ?>assets/vendor/jquery/jquery-3.7.1.min.js"></script>
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
 </head>
 
 <body>

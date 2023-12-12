@@ -12,4 +12,4 @@ $routes->post('/login', 'Home::login');
 $routes->get('/registration', 'Home::registration');
 $routes->post('/registration', 'Home::registration');
 
-$routes->get('/organizations/feature/(:any)/tagihan', 'Organizations::tagihan/$1');
+$routes->get('/chat/(:any)', 'Chat::open/$1');

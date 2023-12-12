@@ -156,6 +156,8 @@ class Organizations extends BaseController
 
         $orgModel = new OrganizationModel();
         $tagihanModel = new TagihanModel();
+        $pertemuanModel = new \App\Models\PertemuanModel();
+        $pertemuanModel->where('DATE(start_at) >= DATE(NOW())');
 
         $organization = $orgModel->getMyOrg($organizationId, $auth->get('id'));
         if(!$organization){
@@ -166,6 +168,7 @@ class Organizations extends BaseController
         $data['title'] = $organization['title'];
         $data['data'] = $organization;
         $data['tagihan'] = $tagihanModel->where('organization_id', $organization['id'])->findAll();
+        $data['acara'] = $pertemuanModel->where('organization_member.organization_id', $organization['id'])->findAll();
         $data['warning'] = $this->session->getFlashdata('warning');
         $data['success'] = $this->session->getFlashdata('success');
         if($organization['member']['role'] == 'admin'){
@@ -174,6 +177,30 @@ class Organizations extends BaseController
             $data['verifing_member'] = $memberModel->where('organization_member.status', 'verifing')->findAll(20,0);
         }
         return view('organization/dashboard', $data);
+    }
+
+    public function members($organizationId = null)
+    {
+        $auth = new Auth();
+        if(!$auth->isLogin()) return redirect()->to('login');
+        if(!$organizationId) return redirect()->to('organizations');
+
+        $orgModel = new OrganizationModel();
+        $tagihanModel = new TagihanModel();
+
+        $organization = $orgModel->getMyOrg($organizationId, $auth->get('id'));
+        if(!$organization){
+            $this->session->setFlashdata('warning', 'Maaf, anda belum terdaftar di organisasi ini.');
+            return redirect()->to('organizations');
+        }
+
+        $data['title'] = 'Anggota '.$organization['title'];
+        $data['warning'] = $this->session->getFlashdata('warning');
+        $data['success'] = $this->session->getFlashdata('success');
+        $memberModel = new OrganizationMemberModel();
+        $memberModel->where('organization_member.organization_id', $organizationId);
+        $data['members'] = $memberModel->where('organization_member.status', 'verified')->findAll(20,0);
+        return view('organization/members', $data);
     }
 
     public function member_fragment($id)
@@ -430,10 +457,10 @@ class Organizations extends BaseController
         $pertemuanModel = new \App\Models\PertemuanModel();
         $saved = $pertemuanModel->insert($validData);
         if($saved ?? false){
-            $this->session->setFlashdata('success', 'Transaksi berhasil di update');
+            $this->session->setFlashdata('success', 'Kegiatan berhasil di tambahkan');
             return redirect()->to('pertemuan/absensi/'.$saved);
         }else{
-            $this->session->setFlashdata('warning', 'Transaksi gagal di update, silahkan coba kembali');
+            $this->session->setFlashdata('warning', 'Kegiatan gagal di tambahkan, silahkan coba kembali');
         }
         return redirect()->to('organizations/dashboard');
     }

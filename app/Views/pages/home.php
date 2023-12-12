@@ -33,21 +33,21 @@
                                 <div class="icon-box mt-4 mt-xl-0">
                                     <i class='bx bxs-user-detail'></i>
                                     <h4>Manajemen Anggota</h4>
-                                    <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
+                                    <p>Manajement anggota yang memberikan pengalaman terbaik dengan menampilkan Keanggotaaan yang mudah dan nyaman.</p>
                                 </div>
                             </div>
                             <div class="col-xl-4 d-flex align-items-stretch">
                                 <div class="icon-box mt-4 mt-xl-0">
                                     <i class="bx bx-wallet"></i>
                                     <h4>Manajemen Dana Kas</h4>
-                                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
+                                    <p>Manajemen dana kas yang memudahkan mahasiswa untuk mengelola dana kas dengan aman dan nyaman.</p>
                                 </div>
                             </div>
                             <div class="col-xl-4 d-flex align-items-stretch">
                                 <div class="icon-box mt-4 mt-xl-0">
                                     <i class="bx bx-chat"></i>
                                     <h4>Komunikasi Antar Anggota</h4>
-                                    <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
+                                    <p>Manajemen komunikasi antar anggota dengan mudah dan realtime dengan fitur chat.</p>
                                 </div>
                             </div>
                         </div>

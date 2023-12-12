@@ -34,11 +34,6 @@
                 <li>
                     <a class="nav-link scrollto <?= $request->uri->getSegment(1) == 'organizations' ? 'active' : '' ?>" href="<?= base_url('organizations') ?>">Organisasi</a>
                 </li>
-                <?php if($session->get('id') ?? false): ?>
-                <li>
-                    <a class="nav-link scrollto <?= $request->uri->getSegment(1) == 'chat' ? 'active' : '' ?>" href="<?= base_url('chat') ?>">Chat</a>
-                </li>
-                <?php endif ?>
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav>
