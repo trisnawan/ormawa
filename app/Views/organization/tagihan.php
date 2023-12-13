@@ -23,8 +23,10 @@
                     <a href="#" class="d-block border rounded p-3 h-100 text-dark" data-bs-toggle="modal" data-bs-target="#bayarModal">
                         <div class="small">Status tagihan anda</div>
                         <div class="h4 m-0">
-                            <?= ucwords($tagihan['transaksi']['status'] ?? 'Unpaid') ?>
+                            <?= ucwords($tagihan['transaksi']['status'] ?? 'unpaid') ?>
+                            <?php if(($tagihan['transaksi']['status'] ?? 'unpaid') != 'paid'): ?>
                             <span class="badge bg-primary rounded-pill">Bayar</span>
+                            <?php endif ?>
                         </div>
                     </a>
                 </div>
@@ -32,7 +34,7 @@
             <div>
                 <h3>Laporan pembayaran</h3>
                 <?php if($members ?? false): ?>
-                <div class="row" data-aos="fade-up">
+                <div class="row mb-4" data-aos="fade-up">
                     <?php foreach($members as $member): ?>
                     <div class="col-12 mb-2">
                         <a href="#" class="d-block card" data-bs-toggle="modal" data-bs-target="#detailModal" data-bs-member="<?= $member['id'] ?>" data-bs-tagihan="<?= $tagihan['id'] ?>" data-bs-title="<?= $member['user_full_name'] ?>">
@@ -54,10 +56,26 @@
                 <?php else: ?>
                 <div class="alert alert-warning">Server error!</div>
                 <?php endif ?>
+
+                <?php if($is_admin ?? true): ?>
+                <div class="text-end">
+                    <div class="drowdown">
+                        <a href="#" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-download"></i>
+                            <span>Download Report</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="<?= base_url('export/org/tagihan/print/'.$tagihan['id']) ?>" target="_blank">Cetak Laporan</a></li>
+                            <li><a class="dropdown-item" href="<?= base_url('export/org/tagihan/pdf/'.$tagihan['id']) ?>" target="_blank">Download PDF</a></li>
+                            <li><a class="dropdown-item" href="<?= base_url('export/org/tagihan/excel/'.$tagihan['id']) ?>" target="_blank">Download Excel</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <?php endif ?>
             </div>
         </div>
-    </div>
-</div>
+    </section>
+</main>
 <div class="modal fade" id="bayarModal" tabindex="-1" aria-labelledby="bayarModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <form class="modal-content" method="post" action="<?= current_url() ?>">

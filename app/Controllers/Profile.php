@@ -19,6 +19,7 @@ class Profile extends BaseController
         $data['title'] = 'Profile';
         $data['profile'] = $userModel->find($auth->get('id'));
         $data['orgs'] = $memberModel->where('organization_member.user_id', $auth->get('id'))->findAll();
+        $data['is_admin'] = $auth->isAdmin();
         $data['warning'] = $this->session->getFlashdata('warning');
         $data['success'] = $this->session->getFlashdata('success');
         return view('account/profile', $data);

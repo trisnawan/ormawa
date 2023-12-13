@@ -47,6 +47,7 @@ class TagihanModel extends Model
 
     protected function select_field(array $data){
         $this->select('tagihan.id, tagihan.title, tagihan.amount');
+        $this->select('tagihan.organization_id');
         $this->orderBy('tagihan.created_at', 'DESC');
         return $data;
     }

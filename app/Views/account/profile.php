@@ -34,6 +34,12 @@
                                     <i class="fas fa-users"></i>
                                     <span class="d-none d-md-inline-block">Organisasi saya</span>
                                 </button>
+                                <?php if($is_admin ?? false): ?>
+                                <a href="<?= base_url('admin') ?>" class="nav-link">
+                                    <i class="fas fa-user-shield"></i>
+                                    <span class="d-none d-md-inline-block">Dasbor admin</span>
+                                </a>
+                                <?php endif ?>
                             </div>
                         </nav>
                         <div class="card-body">

@@ -195,6 +195,7 @@ class Organizations extends BaseController
         }
 
         $data['title'] = 'Anggota '.$organization['title'];
+        $data['org'] = $organization;
         $data['warning'] = $this->session->getFlashdata('warning');
         $data['success'] = $this->session->getFlashdata('success');
         $memberModel = new OrganizationMemberModel();
@@ -318,6 +319,13 @@ class Organizations extends BaseController
         $tagihanId = $this->request->getVar('id') ?? $this->request->getVar('tagihan_id');
         $tagihanModel = new TagihanModel();
         $tagihan = $tagihanModel->find($tagihanId);
+
+        $memberModel = new OrganizationMemberModel();
+        $my = $memberModel->where('organization_member.organization_id', $organizationId)->where('organization_member.user_id', $auth->get('id'))->first();
+
+        $transaksiModel = new TransaksiModel();
+        $transaksiModel->where('member_id', $my['id']);
+        $tagihan['transaksi'] = $transaksiModel->where('tagihan_id', $tagihanId)->first();
 
         if(!$this->request->is('post')){
             $memberModel = new OrganizationMemberModel();

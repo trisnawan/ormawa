@@ -79,15 +79,15 @@
                 </div>
 
                 <div class="text-end">
-                    <div class="btn-group dropup">
-                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <div class="drowdown">
+                        <a href="#" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-download"></i>
-                            <span>Download kehadiran</span>
-                        </button>
+                            <span>Download Report</span>
+                        </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-print"></i> Print</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-file"></i> PDF</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fas fa-file-excel"></i> Excel</a></li>
+                            <li><a class="dropdown-item" href="<?= base_url('export/org/absensi/print/'.$data['id']) ?>" target="_blank">Cetak Laporan</a></li>
+                            <li><a class="dropdown-item" href="<?= base_url('export/org/absensi/pdf/'.$data['id']) ?>" target="_blank">Download PDF</a></li>
+                            <li><a class="dropdown-item" href="<?= base_url('export/org/absensi/excel/'.$data['id']) ?>" target="_blank">Download Excel</a></li>
                         </ul>
                     </div>
                 </div>

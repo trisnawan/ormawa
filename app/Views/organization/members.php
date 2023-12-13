@@ -16,10 +16,17 @@
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-auto mb-2">
-                    <a href="#" class="btn btn-primary w-100 w-md-auto">
-                        <i class="fas fa-download"></i>
-                        <span>Download Report</span>
-                    </a>
+                    <div class="drowdown">
+                        <a href="#" class="btn btn-primary dropdown-toggle w-100 w-md-auto" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-download"></i>
+                            <span>Download Report</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="<?= base_url('export/org/members/print/'.$org['id']) ?>" target="_blank">Cetak Laporan</a></li>
+                            <li><a class="dropdown-item" href="<?= base_url('export/org/members/pdf/'.$org['id']) ?>" target="_blank">Download PDF</a></li>
+                            <li><a class="dropdown-item" href="<?= base_url('export/org/members/excel/'.$org['id']) ?>" target="_blank">Download Excel</a></li>
+                        </ul>
+                    </div>
                 </div>
             </div>
             <div>

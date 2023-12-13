@@ -34,7 +34,7 @@ class OrganizationMemberModel extends Model
         $this->select('organization_member.id, organization_member.role, organization_member.position, organization_member.status, organization_member.join_at');
         $this->select('organizations.id as organization_id, organizations.title as organization_title');
         $this->select("CONCAT('".base_url('content/organization/avatar/')."', IFNULL(organizations.avatar, 'default.png')) as organization_avatar");
-        $this->select("organization_member.user_id, users.full_name as user_full_name");
+        $this->select("organization_member.user_id, users.full_name as user_full_name, users.email as user_email, users.phone as user_phone");
         $this->select("CONCAT('".base_url('content/profile/avatar/')."', IFNULL(users.avatar, 'default.png')) as user_avatar");
         $this->join('organizations', 'organizations.id = organization_member.organization_id');
         $this->join('users', 'users.id = organization_member.user_id');
